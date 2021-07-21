@@ -31,13 +31,14 @@ export default function AccountPopover() {
     setOpen(false);
   };
   const signOut = () => {
+    navigate("/signin");
     firebase
       .auth()
       .signOut()
       .then(() => { })
       .catch((error) => {
         console.log(error);
-        navigate("/signin");
+
       });
   };
 

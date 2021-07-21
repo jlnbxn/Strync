@@ -13,7 +13,7 @@ import Container from "@material-ui/core/Container";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import AuthSocial from "../components/AuthSocial";
 import { Stack } from "@material-ui/core";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { FirebaseContext } from "../contexts/FirebaseContext";
 
 function Copyright() {
@@ -50,11 +50,39 @@ export default function SignIn() {
     const classes = useStyles();
     const { state, dispatch } = useContext(FirebaseContext);
     const { firebase, auth } = state;
+
+    const [data, setData] = useState({})
     const navigate = useNavigate();
 
     const signInWithGoogle = () => {
         const provider = new firebase.auth.GoogleAuthProvider();
         auth.signInWithPopup(provider).then(() => navigate("/"));
+    };
+
+    const handleChange = (event) => {
+        const name = event.target.name;
+        setData({
+            ...data,
+            [name]: event.target.value,
+        });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const { email, password } = data
+
+        firebase.auth().signInWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                // Signed in
+
+                navigate("/")
+                // ...
+            })
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+            });
+
     };
 
     return (
@@ -70,7 +98,7 @@ export default function SignIn() {
                     </Typography>
                 </Stack>
 
-                <form className={classes.form} noValidate>
+                <form className={classes.form} onSubmit={handleSubmit}>
                     <AuthSocial signInWithGoogle={signInWithGoogle} />
                     <TextField
                         variant="outlined"
@@ -81,7 +109,9 @@ export default function SignIn() {
                         label="Email Address"
                         name="email"
                         autoComplete="email"
+                        type="email"
                         autoFocus
+                        onChange={handleChange}
                     />
                     <TextField
                         variant="outlined"
@@ -93,6 +123,7 @@ export default function SignIn() {
                         type="password"
                         id="password"
                         autoComplete="current-password"
+                        onChange={handleChange}
                     />
                     <FormControlLabel
                         control={<Checkbox value="remember" color="primary" />}
