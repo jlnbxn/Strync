@@ -12,6 +12,7 @@ function useSpotifyAuth(code) {
     const [user] = useAuthState(auth);
 
 
+
     useEffect(() => {
         if (!code || !user) return
         fetch(`/.netlify/functions/spotify`, {
@@ -40,7 +41,9 @@ function useSpotifyAuth(code) {
     }, [code, user])
 
     useEffect(() => {
-        if (auth.currentUser === null) return
+        console.log(user)
+        if (!user) return
+
         const spotifyCredentials = firebase.database().ref("users/" + auth.currentUser.uid + "/spotify")
 
         spotifyCredentials.on('value', (snapshot) => {
@@ -61,7 +64,7 @@ function useSpotifyAuth(code) {
                 setAccessToken(spotifyData.accessToken)
             }
         })
-    }, [!user])
+    }, [user])
 
     return accessToken
 

@@ -162,6 +162,20 @@ export default class SpotifyApi {
         }));
     }
 
+    async addTrackToPlaylist(playlist_id, track_id) {
+        const response = await fetch(
+            `https://api.spotify.com/v1/playlists/${playlist_id}/tracks?uris=spotify:track:${track_id}`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + this.access_token,
+            },
+        }
+        ).then((res) => res.json());
+        return response;
+    }
+
+
     async getUserLibrary() {
         try {
             const response = await fetch(
@@ -291,7 +305,7 @@ export default class SpotifyApi {
                         artistName,
                         albumName
                     );
-                    if (searchResults.data.length === 0) return false;
+                    if (!searchResults || searchResults.data.length === 0) return false;
                     const filtered = searchResults.data.filter(
                         (item) =>
                             item.duration === Math.floor(durationMs / 1000) ||

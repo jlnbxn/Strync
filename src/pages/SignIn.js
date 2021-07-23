@@ -10,11 +10,13 @@ import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/styles";
 import Container from "@material-ui/core/Container";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { Link as RouterLink, Navigate, useNavigate } from "react-router-dom";
 import AuthSocial from "../components/AuthSocial";
 import { Stack } from "@material-ui/core";
 import { useContext, useState } from "react";
 import { FirebaseContext } from "../contexts/FirebaseContext";
+import { useAuthState } from "react-firebase-hooks/auth";
+import Loading from "../components/Loading";
 
 function Copyright() {
     return (
@@ -50,6 +52,7 @@ export default function SignIn() {
     const classes = useStyles();
     const { state, dispatch } = useContext(FirebaseContext);
     const { firebase, auth } = state;
+    const [user, loading] = useAuthState(auth)
 
     const [data, setData] = useState({})
     const navigate = useNavigate();
@@ -84,6 +87,15 @@ export default function SignIn() {
             });
 
     };
+
+
+    if (loading) return (
+        <Loading />
+    )
+
+    if (user) return (
+        <Navigate to="/" />
+    )
 
     return (
         <Container component="main" maxWidth="xs">

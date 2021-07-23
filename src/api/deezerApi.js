@@ -1,4 +1,4 @@
-const baseUri = "/cors-proxy/api.deezer.com/";
+
 
 export default class DeezerApi {
     constructor({ client_id, redirect_uri, scopes }) {
@@ -28,7 +28,7 @@ export default class DeezerApi {
     }
 
     async searchByIsrc(isrc) {
-        return await fetch(baseUri + "track/isrc:" + isrc).then((res) =>
+        return await fetch("/cors-proxy/api.deezer.com/" + "track/isrc:" + isrc).then((res) =>
             res.json()
         );
     }
@@ -93,14 +93,20 @@ export default class DeezerApi {
     }
 
     async searchAdvanced(title, artist, album_name) {
-        const response = await fetch(
-            `/cors-proxy/api.deezer.com/search?strict=on&q=track:"${encodeURIComponent(
-                title
-            )}" artist:"${encodeURIComponent(artist)}" album:"${encodeURIComponent(
-                album_name
-            )}"`
-        ).then((res) => res.json());
-        return response;
+        try {
+            const response = await fetch(
+                `/cors-proxy/api.deezer.com/search?strict=on&q=track:"${encodeURIComponent(
+                    title
+                )}" artist:"${encodeURIComponent(artist)}" album:"${encodeURIComponent(album_name)}"`
+            ).then((res) => res.json());
+
+            return response;
+        }
+        catch {
+            return
+        }
+
+
     }
 
     async getTrackById(track_id) {
@@ -134,7 +140,7 @@ export default class DeezerApi {
         playlistTracks = playlistTracks.concat(response.data);
         while (response.next) {
             console.log(response.next);
-            response = await fetch("/cors-proxy/" + response.next).then((res) =>
+            response = await fetch("/cors-proxy/" + response.next.replace('https://', '')).then((res) =>
                 res.json()
             );
             playlistTracks = playlistTracks.concat(response.data);
