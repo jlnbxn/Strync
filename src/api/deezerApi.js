@@ -1,4 +1,4 @@
-const baseUri = "/cors-proxy/https://api.deezer.com/";
+const baseUri = "/cors-proxy/api.deezer.com/";
 
 export default class DeezerApi {
     constructor({ client_id, redirect_uri, scopes }) {
@@ -35,19 +35,19 @@ export default class DeezerApi {
 
     async getUser() {
         return await fetch(
-            `/cors-proxy/https://api.deezer.com/user/me?access_token=${this.access_token}`
+            `/cors-proxy/api.deezer.com/user/me?access_token=${this.access_token}`
         ).then((res) => res.json());
     }
 
     async getCurrentUser() {
         return await fetch(
-            `/cors-proxy/https://api.deezer.com/user/me?access_token=${this.access_token}`
+            `/cors-proxy/api.deezer.com/user/me?access_token=${this.access_token}`
         ).then((res) => res.json());
     }
 
     async getUserPlaylists() {
         const playlists = await fetch(
-            `/cors-proxy/https://api.deezer.com/user/me/playlists?access_token=${this.access_token}`
+            `/cors-proxy/api.deezer.com/user/me/playlists?access_token=${this.access_token}`
         ).then((res) => res.json());
 
         const conformedPlaylists = playlists.data.map((playlist) => {
@@ -58,7 +58,7 @@ export default class DeezerApi {
 
     async getUserLibrary() {
         const response = await fetch(
-            `/cors-proxy/https://api.deezer.com/user/me/tracks?access_token=${this.access_token}`
+            `/cors-proxy/api.deezer.com/user/me/tracks?access_token=${this.access_token}`
         ).then((res) => res.json());
         let deezerLibrary = [];
         for (let track of response.data) {
@@ -80,21 +80,21 @@ export default class DeezerApi {
     }
     async getAlbumById(album_id) {
         const response = await fetch(
-            `/cors-proxy/https://api.deezer.com/album/${album_id}`
+            `/cors-proxy/api.deezer.com/album/${album_id}`
         ).then((res) => res.json());
         return response;
     }
 
     async getAlbumByUpc(upc, isrc, title, positionInAlbum) {
         const response = await fetch(
-            `/cors-proxy/https://api.deezer.com/album/upc:${upc}`
+            `/cors-proxy/api.deezer.com/album/upc:${upc}`
         ).then((res) => res.json());
         return response;
     }
 
     async searchAdvanced(title, artist, album_name) {
         const response = await fetch(
-            `/cors-proxy/https://api.deezer.com/search?strict=on&q=track:"${encodeURIComponent(
+            `/cors-proxy/api.deezer.com/search?strict=on&q=track:"${encodeURIComponent(
                 title
             )}" artist:"${encodeURIComponent(artist)}" album:"${encodeURIComponent(
                 album_name
@@ -105,13 +105,13 @@ export default class DeezerApi {
 
     async getTrackById(track_id) {
         const response = await fetch(
-            `/cors-proxy/https://api.deezer.com/track/${track_id}`
+            `/cors-proxy/api.deezer.com/track/${track_id}`
         ).then((res) => res.json());
         return response;
     }
     async addToPlaylist(track_id, playlist_id) {
         const response = await fetch(
-            `/cors-proxy/https://api.deezer.com/playlist/9220096522/tracks?access_token=${this.access_token}&request_method=post&songs=${track_id}`
+            `/cors-proxy/api.deezer.com/playlist/9220096522/tracks?access_token=${this.access_token}&request_method=post&songs=${track_id}`
         ).then((res) => res.json());
         return response;
     }
@@ -119,7 +119,7 @@ export default class DeezerApi {
     async addTrackToLibrary(track_id) {
         const user = await this.getUser();
         const response = await fetch(
-            `/cors-proxy/https://api.deezer.com/user/${user.id}/tracks?track_id=${track_id}&access_token=${this.access_token}&request_method=post`
+            `/cors-proxy/api.deezer.com/user/${user.id}/tracks?track_id=${track_id}&access_token=${this.access_token}&request_method=post`
         ).then((res) => res.json());
         console.log(response);
 
@@ -129,7 +129,7 @@ export default class DeezerApi {
     async getPlaylistTracks(playlist_id) {
         let playlistTracks = [];
         let response = await fetch(
-            `/cors-proxy/https://api.deezer.com/playlist/${playlist_id}/tracks?access_token=${this.access_token}`
+            `/cors-proxy/api.deezer.com/playlist/${playlist_id}/tracks?access_token=${this.access_token}`
         ).then((res) => res.json());
         playlistTracks = playlistTracks.concat(response.data);
         while (response.next) {
@@ -156,7 +156,7 @@ export default class DeezerApi {
 
     async addTrackToPlaylist(playlist_id, track_id) {
         const response = await fetch(
-            `/cors-proxy/https://api.deezer.com/playlist/${playlist_id}/tracks?songs=${track_id}&access_token=${this.access_token}&request_method=post`
+            `/cors-proxy/api.deezer.com/playlist/${playlist_id}/tracks?songs=${track_id}&access_token=${this.access_token}&request_method=post`
         ).then((res) => res.json());
         return response;
     }
