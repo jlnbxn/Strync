@@ -82,7 +82,7 @@ export default class SpotifyApi {
         playlists = playlists.concat(response.items.map((item) => item));
 
         while (response.next !== null) {
-            console.log(response.next);
+
             response = await fetch(response.next, {
                 headers: {
                     "Content-Type": "application/json",
@@ -123,7 +123,7 @@ export default class SpotifyApi {
                 },
             }
         ).then((res) => res.json());
-        console.log(response.items);
+
         let next = response.next;
         let offset = 100;
         let tracks = response.items;
@@ -147,13 +147,6 @@ export default class SpotifyApi {
         }
         response.items = tracks;
 
-        console.log(
-            response.items.map((item) => ({
-                trackId: item.track.id,
-                isrc: item.track.external_ids.isrc,
-                trackName: item.track.name,
-            }))
-        );
 
         return response.items.map((item) => ({
             trackId: item.track.id,
@@ -210,7 +203,7 @@ export default class SpotifyApi {
                 tracks = tracks.concat(filteredTracks);
             }
             response.items = tracks;
-            console.log(response.items);
+
 
             const ids = response.items.map((item) => ({
                 trackId: item.track.id,
@@ -219,7 +212,7 @@ export default class SpotifyApi {
             }));
             return ids;
         } catch (error) {
-            console.log(error);
+
         }
     }
 

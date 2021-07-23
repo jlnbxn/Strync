@@ -105,7 +105,7 @@ export default class AppleMusicApi {
                 },
             }
         ).then((res) => res.json());
-        console.log(response);
+
 
         const playlists = response.data.map((playlist) => {
             return { name: playlist.attributes.name, id: playlist.id };
@@ -136,7 +136,7 @@ export default class AppleMusicApi {
             }
         );
 
-        console.log(response);
+
     }
 
     async search(trackName, albumName, artistName) {

@@ -61,7 +61,7 @@ function Layout({ children }) {
     }, [runningStryncs])
     usePrompt("There are still some running Stryncs -- Are you sure you want to leave?", isBlocking);
 
-    console.log('oeuoe')
+
     useEffect(() => {
         if (!spotifyAccessToken) return;
 

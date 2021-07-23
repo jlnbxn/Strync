@@ -75,7 +75,7 @@ export default class DeezerApi {
                 },
             });
         }
-        console.log(deezerLibrary);
+
         return deezerLibrary;
     }
     async getAlbumById(album_id) {
@@ -127,7 +127,7 @@ export default class DeezerApi {
         const response = await fetch(
             `/cors-proxy/api.deezer.com/user/${user.id}/tracks?track_id=${track_id}&access_token=${this.access_token}&request_method=post`
         ).then((res) => res.json());
-        console.log(response);
+
 
         return response;
     }
@@ -139,16 +139,16 @@ export default class DeezerApi {
         ).then((res) => res.json());
         playlistTracks = playlistTracks.concat(response.data);
         while (response.next) {
-            console.log(response.next);
+
             response = await fetch("/cors-proxy/" + response.next.replace('https://', '')).then((res) =>
                 res.json()
             );
             playlistTracks = playlistTracks.concat(response.data);
         }
 
-        console.log(playlistTracks);
+
         playlistTracks = playlistTracks.map((track) => track.id.toString());
-        console.log(playlistTracks);
+
 
         let unified = [];
 
