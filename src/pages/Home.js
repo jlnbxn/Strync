@@ -46,7 +46,9 @@ export default function Home() {
   const classes = useStyles();
 
   useEffect(() => {
+    appleMusicApi.getUserLibrary().then(res => console.log(res))
     if (!auth.currentUser) return;
+
     const myStryncsRef = firebase
       .database()
       .ref("users/" + auth.currentUser.uid + "/strync");
@@ -57,6 +59,8 @@ export default function Home() {
       setMyStryncs(data);
     });
   }, [auth.currentUser]);
+
+
 
   return (
     <Layout>
