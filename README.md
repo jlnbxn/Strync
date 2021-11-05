@@ -8,21 +8,36 @@ Create a playlist converter that allows users to easily create macro-like tasks 
 
 ## Outcome
 
-Strync is a web application that allows users to convert playlists between different music streaming services.
+**Strync** is a web application that allows users to convert playlists between different music streaming services.
 
 Users can connect to Spotify, Deezer and Apple Music and create “Stryncs” (streaming service synchronisations), which contain the instructions for converting songs from one playlist and streaming service to another.
 
 When using Spotify or Deezer, you can treat your library as a playlist source as well.
 
-![Create a Strync](./docs/assets/img/create-strync.png "Creating a Strync")
+<figure>
+  <img
+  src="./docs/assets/img/create-strync.png"
+  alt="Creating a Strync"/>
+  <figcaption>Create a Strync</figcaption>
+</figure>
 
 These stryncs are associated with the account a user creates upon signing up.
 
 Users can run the strync manually, or tick the “watch” checkbox, making the process run on a remote server in regular intervals.
 
-![Strync running](./docs/assets/img/running-strync.png "Running Strync with progress indicator and eye button to indicate it's being watched.")
+<figure>
+  <img
+  src="./docs/assets/img/running-strync.png"
+  alt="Strync running"/>
+  <figcaption>Running Strync with progress indicator and eye button to indicate it's being watched.</figcaption>
+</figure>
 
-![Filtering stryncs](./docs/assets/img/running-strync.png "Filter your Stryncs by clicking the search bar and entering a playlist name or the Strync's name")
+<figure>
+  <img
+  src="./docs/assets/img/running-strync.png"
+  alt="Filtering stryncs"/>
+  <figcaption>Filter your Stryncs by clicking the search bar and entering a playlist name or the Strync's name</figcaption>
+</figure>
 
 Compared to other playlist converter services, Strync takes pedantic care of choosing the correct release of a song. For example:
 
@@ -32,11 +47,45 @@ Instead, the most popular release will be chosen, which tends to be from a compi
 
 Strync makes this possible by taking multiple factors into account when making the transfer.
 
-![Notifications Popover](./docs/assets/img/notifications-popover.png "Get notified if no match was found")
+<figure>
+  <img
+  src="./docs/assets/img/notifications-popover.png"
+  alt="Notifications Page"/>
+  <figcaption>Get notified if no match was found</figcaption>
+</figure>
 
-![Notifications Popover](./docs/assets/img/notifications-page.png "Get an overview of all failed conversions")
+<figure>
+  <img
+  src="./docs/assets/img/notifications-page.png"
+  alt="Notifications Popover"/>
+  <figcaption>Get an overview of all failed conversions</figcaption>
+</figure>
 
 Strync aims to eliminate the concern of wrong metadata, which leads to the disintegration of one's carefully curated music library — a prospect that has made many people averse to the thought of changing music streaming providers, even in light of switching to a service they would otherwise enjoy more.
+
+### Built With
+
+- [React.js](https://reactjs.org/)
+- [Netlify](https://netlify.com)
+- [Spotify API](https://developer.spotify.com/documentation/web-api/)
+- [Apple Music API](https://developer.apple.com/documentation/applemusicapi/)
+- [Deezer API](https://developers.deezer.com/api)
+- [Material UI](https://mui.com/)
+
+## Getting Started
+
+1. [Create an Apple Music JWT token](https://leemartin.dev/creating-an-apple-music-api-token-e0e5067e4281)
+2. [Register a Spotify App](https://developer.spotify.com/dashboard/applications) and add http://localhost:8888/login-to-spotify as a Redirect URI in the app settings
+3. 2. [Register a Deezer App](https://developer.spotify.com/dashboard/applications) and add http://localhost:8888/login-to-deezer as a Redirect URI in the app settings
+4. Create an .env file in the root of the project based on .env.example
+5. `npm install netlify-cli -g`
+6. `netlify dev`
+
+## License
+
+Distributed under the MIT License. See `LICENSE.txt` for more information.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Background
 
