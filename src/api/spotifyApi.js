@@ -115,7 +115,7 @@ export default class SpotifyApi {
         }
 
         const response = await fetch(
-            `https://api.spotify.com/v1/playlists/${playlist_id}/tracks?fields=next,items(is_local,track(id,external_ids))`,
+            `https://api.spotify.com/v1/playlists/${playlist_id}/tracks?fields=next,items(is_local,track(id,external_ids,name))`,
             {
                 headers: {
                     "Content-Type": "application/json",
@@ -130,7 +130,7 @@ export default class SpotifyApi {
 
         while (next !== null) {
             const response = await fetch(
-                `https://api.spotify.com/v1/playlists/${playlist_id}/tracks?offset=${offset}&fields=next,items(is_local,track(id,external_ids))`,
+                `https://api.spotify.com/v1/playlists/${playlist_id}/tracks?offset=${offset}&fields=next,items(is_local,track(id,external_ids,name))`,
                 {
                     headers: {
                         "Content-Type": "application/json",
